@@ -1,0 +1,97 @@
+
+
+.mt22 {
+    margin-top: 22px;
+}
+
+.tbf {
+    font-size: 14px;
+    font-weight: 400; 
+}
+
+.tbf thead th {
+    font-size: 14px;  
+    font-weight: 500; 
+}
+
+.tbf tbody td {
+    font-size: 14px;  
+    font-weight: 400;
+}
+
+.button-row1 a {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.mt50 {
+    margin-top: 50px;
+}
+
+.mtt30 {
+    margin-top: 30px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt100 {
+    margin-top: 100px;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+.pb40 {
+    padding-bottom: 40px;
+}
+.icon-add-quantity {
+    background-color: rgb(55, 236, 182); 
+    padding: 5px;
+    display: inline-block; 
+    border-radius: 5px; 
+    margin-left: 10px;
+}
+
+.icon-add-quantity i, .icon-add-quantity a {
+    display: inline-block; 
+    color: white; 
+    text-decoration: none; 
+}
+
+.icon-add-quantity i {
+    margin-right: 2px; 
+    margin-left: 5px;
+}
+
+.icon-add-quantity a:hover {
+    color: rgb(94, 193, 47);
+}
+
+.w200 {
+    width: 200px;
+}
+
+.mr10 {
+    margin-right: 40px;
+}
+
+.mr8 {
+    margin-right: 28px;
+}
+
+.card-header {
+    background-color: rgb(159 226 158);
+    padding: 10px; 
+}
+

@@ -1,0 +1,480 @@
+.mt50 {
+    margin-top: 50px;
+}
+
+.bgcl {
+    background-color: beige;
+}
+
+.fs {
+    font-size: 14px;
+}
+
+.fixh {
+    height: 250px;
+}
+
+.fixw {
+    float: right;
+}
+
+.mt10 {
+    margin-top: 30px;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.mt200 {
+    margin-top: 64px;
+}
+
+.mt70 {
+    margin-top: 70px;
+}
+
+.mt12 {
+    margin-top: 12px;
+}
+
+.mt100 {
+    margin-top: 100px;
+}
+
+.mb70 {
+    margin-bottom: 70px;
+}
+
+.pt40 {
+    padding-top: 40px;
+}
+.pt70 {
+    padding-top: 70px;
+}
+.h300 {
+    height: 300px;
+}
+
+.mb40 {
+    margin-bottom: 80px;
+}
+
+/* add cart*/
+.add-to-cart-button {
+    width: 100%;
+    background-color: rgb(141, 137, 137); 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 4px; 
+  }
+  
+  
+  .add-to-cart-button:hover {
+    background-color: #29a838; 
+  }
+  
+  /* CSS khi nhấn vào nút */
+  .add-to-cart-button:active {
+    background-color: #367d39; 
+  }
+
+  .center1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%; 
+  }
+
+.col5 {
+    display: block;
+    float: right;
+    width: 20%;
+    grid-gap: 10px; 
+}
+.colfix {
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+
+.pro-pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pro-pagination ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pro-pagination li {
+    display: inline;
+    margin: 0 5px;
+}
+
+.pro-pagination li a {
+    padding: 8px 12px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+}
+
+.pro-pagination li.active span {
+    background-color: #a2a8ae;
+    color: #fff;
+}
+
+.pro-pagination li a:hover {
+    background-color: #898e94;
+    color: #fff;
+}
+
+.col-img {
+    position: relative; /* Tạo bối cảnh cho vị trí tuyệt đối của tiêu đề */
+}
+
+.category-img {
+    height: 335px; /* Bạn có thể chỉnh chiều cao theo ý muốn */
+    width: auto; /* Đảm bảo ảnh chiếm hết chiều rộng của container */
+    object-fit: cover; /* Giúp ảnh giữ được tỉ lệ mà không bị méo */
+    border-radius: 8px; /* Tùy chọn: bo góc ảnh nếu bạn muốn */
+}
+
+.dd {
+    position: absolute; /* Đặt vị trí tuyệt đối cho tiêu đề */
+    top: 10px; /* Điều chỉnh vị trí từ trên xuống */
+    left: 10px; /* Điều chỉnh vị trí từ trái qua */
+    color: white; /* Màu chữ, thay đổi theo ý bạn */
+    z-index: 1; /* Đảm bảo chữ nằm trên ảnh */
+    background-color: rgba(158, 138, 138, 0.408); /* Thêm nền trắng mờ cho chữ dễ nhìn */
+    padding: 5px; /* Thêm khoảng cách giữa chữ và viền */
+    border-radius: 5px; /* Bo góc cho nền chữ */
+    font-weight: 300px;
+    font-size: 22px;
+}
+
+
+
+.coupon-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.coupon-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.coupon-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: calc(33% - 20px); /* Adjust the width of each coupon */
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Set relative positioning to allow absolute positioning for the badge */
+}
+
+.coupon-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.coupon-code {
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.coupon-info {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.coupon-info span {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.coupon-action {
+    text-align: center;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+.saved-msg {
+    color: #888;
+    font-size: 14px;
+}
+
+.coupon-limit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+
+button.place_order {
+    background-color: #01050a; /* Màu nền xanh dương */
+    color: white; /* Màu chữ trắng */
+    padding: 12px 24px; /* Khoảng cách padding */
+    border: none; /* Loại bỏ viền */
+    border-radius: 4px; /* Bo góc */
+    font-size: 16px; /* Cỡ chữ */
+    font-weight: bold; /* In đậm chữ */
+    text-transform: uppercase; /* Viết hoa chữ */
+    cursor: pointer; /* Thay đổi con trỏ khi hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển màu và phóng to khi hover */
+}
+
+button.place_order:hover {
+    background-color: #021222; /* Màu nền khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+button.place_order:active {
+    transform: scale(0.98); /* Thu nhỏ nhẹ khi bấm */
+}
+
+#wishlist-message {
+    position: fixed; 
+    top: 0px; 
+    right: 0px; 
+    z-index: 9999; 
+    padding: 15px;
+    transition: opacity 0.5s ease; 
+}
+
+.alert-success {
+    background-color: #dff0d8;
+    color: #3c763d; 
+}
+
+.alert-danger {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+
+.add-to-cart-button {
+    display: inline-block;
+    line-height: 40px; /* Chiều cao tương đương với chiều cao của nút */
+    height: 40px; /* Chiều cao của nút */
+    padding: 0 15px; /* Khoảng cách ngang bên trong nút */
+    font-size: 14px; /* Kích thước chữ */
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.comment-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-date {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.comment-content p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.replies-container {
+    margin-left: 20px;
+    border-left: 2px solid #4f6175;
+    padding-left: 10px;
+}
+
+.reply-item {
+    padding: 5px 0;
+}
+
+.btn-reply {
+    margin-top: 10px;
+    font-size: 12px;
+    background-color: #616b76;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 20px;
+    cursor: pointer;
+}
+
+.btn-reply:hover {
+    background-color: #414f5e;
+}
+
+
+.reply-form {
+    margin-top: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+textarea.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.btn-submit {
+    font-size: 12px;
+    background-color: #24402b;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #335e3c;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+
+input[type="radio"] {
+    display: none;
+}
+
+label i.fa-star {
+    color: #f5a623 ; 
+    cursor: pointer;
+}
+
+input[type="radio"]:checked ~ label i.fa-star {
+    color: #f5a623 ; 
+}
+
+label:hover ~ label i.fa-star {
+    color: #ccc !important; 
+}
+  
+input[type="radio"]:checked + label ~ label i.fa-star {
+    color: #ccc; 
+}
+
+label i.fa-star:hover,
+label i.fa-star:hover ~ label i.fa-star {
+    color: #f5a623;
+}
+
+
+.out-of-stock {
+    background-color: #ea0909fe; /* Light charcoal */
+    color: white; /* Text color */
+    padding: 1px 5px; /* Optional: Add some padding around the text */
+    border-radius: 5px; /* Optional: Add rounded corners */
+  }
+
+.banner-text {
+    position: absolute;
+    top: 2px;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.banner-text h5 {
+    text-align: center;
+    font-size: 18px;
+    background-color: rgba(33, 29, 29, 0.6);
+    padding: 5px;
+}
+
+.banner-text p {
+    text-align: justify;
+    background-color: rgba(243, 241, 241, 0.6);
+    padding: 7px;
+    margin-top: 5px;
+}
+
+.fixed-frame {
+    width: 200px; /* Chiều rộng khung */
+    height: 200px; /* Chiều cao khung */
+    overflow: hidden; /* Ẩn phần ảnh thừa */
+    display: flex;
+    justify-content: center; /* Canh giữa ảnh theo chiều ngang */
+    align-items: center; /* Canh giữa ảnh theo chiều dọc */
+    background-color: #f4f4f4; /* Màu nền trong trường hợp ảnh không tải */
+    border-radius: 8px; /* Bo góc nếu cần */
+}
+
+.ml25 {
+    margin-left: 30px;
+}
+
+.fixed-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cắt ảnh theo kích thước khung mà không méo */
+    object-position: center; /* Canh giữa ảnh trong khung */
+}
+
+.mb50 {
+    margin-bottom: 50px;
+}
