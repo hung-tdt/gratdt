@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Coupon;
 
 use App\Models\Province;
 use App\Models\District;
@@ -26,6 +27,11 @@ class OrderController extends Controller
         }
 
         $customer = auth()->guard('customer')->user();
+
+        if (!$customer->address || !$customer->ward || !$customer->district || !$customer->province) {
+            return redirect()->route('customer.profile', ['id' => $customer->id])
+                ->with('error', 'Please complete your profile with a full address before proceeding to checkout.');
+        }
 
         $province = $customer->province ? str_pad($customer->province->id, 2, '0', STR_PAD_LEFT) : 'Not provided';
         $district = $customer->district ? str_pad($customer->district->id, 3, '0', STR_PAD_LEFT) : 'Not provided';
@@ -125,10 +131,16 @@ class OrderController extends Controller
                 $quantityNeeded -= $deductibleQuantity;
             }
         }
+        $discount = $request->input('discount');
+        if (is_null($discount)) {
+            $discount = 0;
+        }
+        $totalAmount -= $discount;
 
         $order = Order::create([
             'customer_id' => auth()->guard('customer')->id(),
             'order_number' => $orderNumber,
+            'discount' => $discount,
             'total_amount' => $totalAmount,
             'total_import' => $totalImport,
             'status' => 'pending',
@@ -143,6 +155,12 @@ class OrderController extends Controller
             'payment_status' => 'Not Paid',
             'order_date' => now(),
         ]);
+
+        $couponCode = $request->input('code'); 
+        $coupon = Coupon::where('code', $couponCode)->first(); // Tìm coupon theo mã
+        $coupon->max_uses -= 1;
+        $coupon->save();
+
 
         foreach ($request->cart_items as $item) {
             OrderDetail::create([
@@ -164,6 +182,41 @@ class OrderController extends Controller
         }
 
         return redirect()->route('order.track', ['order' => $order]);
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|string'
+        ]);
+
+        $coupon = Coupon::where('code', $request->input('code'))
+            ->where('active', 1)
+            ->where(function ($query) {
+                $query->whereNull('expiry_date')->orWhere('expiry_date', '>=', now());
+            })
+            ->where('max_uses', '>', 0)  
+            ->first();
+
+        if (!$coupon) {
+            return response()->json(['error' => 'Invalid or expired coupon code.'], 400);
+        }
+
+        $discount = 0;
+        $subtotal = $request->input('subtotal'); 
+
+        if ($coupon->discount_type == 1) { 
+            $discount = ($subtotal * $coupon->discount_value) / 100;
+        } elseif ($coupon->discount_type == 0) { 
+            $discount = min($subtotal, $coupon->discount_value);
+        }
+        
+        $total = $subtotal - $discount;
+
+        return response()->json([
+            'discount' => $discount,
+            'total' => $total
+        ]);
     }
 
     public function orderHistory()

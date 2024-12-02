@@ -36,12 +36,6 @@
               <input class="form-control" type="number" name="price" value="{{ $product->price }}" placeholder="">
             </div>
           </div>
-          <div class="col-md-3">
-            <label for="price_sale">Price sale</label>
-            <div class="input-group mb-3">
-              <input class="form-control" type="number" name="price_sale" value="{{ $product->price_sale }}" placeholder="">
-            </div>
-          </div> 
           
           <div class="col-md-3">
             <label> Product Catalog</label>
@@ -78,7 +72,7 @@
               <input type="file" name="thumb" class="form-control" id="upload">
               <div class="mt22" id="image_show">
                   <a href="{{ $product->thumb }}" target="_blank">
-                    <img src="{{ $product->thumb }}" alt="" width="200px">
+                    <img src="{{ $product->thumb }}" alt="" width="100px">
                   </a>
               </div>
               <input type="hidden" name="thumb" value="{{ $product->thumb }}" id="thumb">
@@ -91,7 +85,7 @@
               <input type="file" name="thumb2" class="form-control" id="upload2">
               <div class="mt22" id="image_show2">
                   <a href="{{ $product->thumb2 }}" target="_blank">
-                    <img src="{{ $product->thumb2 }}" alt="" width="200px">
+                    <img src="{{ $product->thumb2 }}" alt="" width="100px">
                   </a>
               </div>
               <input type="hidden" name="thumb2" value="{{ $product->thumb2 }}" id="thumb2">
@@ -105,7 +99,7 @@
               <div id="image-preview">
                 @if($product->images)
                     @foreach($product->images as $image)
-                        <img src="{{ url($image) }}" alt="Product Image" style="width : 200px; padding-right : 5px">
+                        <img src="{{ url($image) }}" alt="Product Image" style="width : 100px; padding-right : 5px">
                     @endforeach
                 @endif
               </div>

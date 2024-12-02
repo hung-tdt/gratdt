@@ -58,10 +58,15 @@ class ProductController extends Controller
             ->orderbyDesc('id')
             ->limit(3)
             ->get();
-        $hotdealProducts = Product::select('*', DB::raw('price / price_sale as discount_ratio'))
-        ->orderByDesc('discount_ratio')
-        ->limit(3)
-        ->get();
+        $hotdealProducts = Product::with('promotions')
+            ->get()
+            ->filter(function ($product) {
+                return $product->discounted_price < $product->price;
+            })
+            ->sortByDesc(function ($product) {
+                return ($product->price - $product->discounted_price) / $product->price;
+            })
+            ->take(3);
         $bestSellerProducts = Product::orderbyDesc('sold_count')->limit(2)->get();
         $product = $this->productshowService->getAll();
         return view('customer.products.listAll',[
@@ -79,10 +84,15 @@ class ProductController extends Controller
             ->orderbyDesc('id')
             ->limit(3)
             ->get();
-        $hotdealProducts = Product::select('*', DB::raw('price / price_sale as discount_ratio'))
-        ->orderByDesc('discount_ratio')
-        ->limit(2)
-        ->get();
+        $hotdealProducts = Product::with('promotions')
+            ->get()
+            ->filter(function ($product) {
+                return $product->discounted_price < $product->price;
+            })
+            ->sortByDesc(function ($product) {
+                return ($product->price - $product->discounted_price) / $product->price;
+            })
+            ->take(3);
         $bestSellerProducts = Product::orderbyDesc('sold_count')->limit(2)->get();
        
         $query = $request->input('search');
@@ -102,7 +112,7 @@ class ProductController extends Controller
         $minPrice = $request->input('min_price', 0);  
         $maxPrice = $request->input('max_price', 1000);  
 
-        $products = Product::whereBetween('price_sale', [$minPrice, $maxPrice])->get();
+        $products = Product::whereBetween('price', [$minPrice, $maxPrice])->get();
 
         return view('customer.products.filterprice', compact('products'));
     }

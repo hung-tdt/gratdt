@@ -24,7 +24,27 @@
                             <h6>
                                 <a href="/product/{{ $item->product->id }}-{{\Str::slug($item->product->name,'-')}}.html">{{ $item->product->name }}</a>
                             </h6>
-                            <span class="cart-price">${{ number_format($item->total) }}</span>
+                            @if ($item->product->discounted_price < $item->product->price)
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span class="cart-price">
+                                        ${{ number_format($item->product->discounted_price) }}
+                                    </span>
+                                    <span class="price-content" style="margin-top: 5px">
+                                        ${{ number_format($item->total) }}
+                                    </span>
+                                </div>
+                            @else
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span class="cart-price">
+                                        ${{ number_format($item->product->price) }}
+                                    </span>
+                                    <span class="price-content" style="margin-top: 5px">
+                                        ${{ number_format($item->total) }}
+                                    </span>
+                                </div>
+                                
+                            @endif
+                            
                         </div>
                        
                     </div>
@@ -42,7 +62,7 @@
                 </div>
                 <!-- Cart Footer Inner End -->
             @else
-                <p>Giỏ hàng của bạn trống</p>
+                <p>Your cart is empty</p>
             @endif
         </li>
     </ul>

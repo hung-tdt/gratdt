@@ -62,12 +62,71 @@
 					</div>
 				</div>
 				<!-- Categorie Search Box Start Here -->
-				@include('customer.component.search')
+				<div class="col-lg-4 col-md-8 ml-auto mr-auto col-10">
+					<div class="categorie-search-box">
+						@include('customer.component.search')													
+					</div>
+					
+				</div>
 				<!-- Categorie Search Box End Here -->
 				<!-- Cart Box Start Here -->
-				<div class="col-lg-4 col-md-12">
+				
+				<div class="col-lg-5 col-md-12">
 					<div class="cart-box mt-all-30">
-						<ul class="d-flex justify-content-lg-end justify-content-center align-items-center">
+						<ul class="d-flex justify-content-center align-items-center">
+							<div class="notifications-dropdown">								
+								<div class="notification-wrapper">
+									<!-- Biểu tượng chuông -->
+									<div class="notification-icon" id="notification-icon">
+										<i class="fas fa-bell"></i>
+										@if ($unreadNotifications->count())
+											<span class="notification-badge">{{ $unreadNotifications->count() }}</span>
+										@endif
+									</div>
+								
+									<!-- Danh sách thông báo -->
+									<div class="notification-list" id="notification-list">
+										@if ($unreadNotifications->count() || $readNotifications->count())
+										<!-- Thông báo chưa đọc -->
+											@if ($unreadNotifications->count())
+												<p>New notifications</p>
+												<ul>
+													@foreach ($unreadNotifications as $unreadNotifications)
+														<li>
+															<a href="{{ route('notifications.markAsRead', $unreadNotifications->id) }}">
+																{{ $unreadNotifications->data['message'] }}
+															</a>
+														</li>
+													@endforeach
+												</ul>
+											@else
+												<p>No new notifications.</p>
+											@endif
+										
+											@if ($readNotifications->count())
+												<p>Notifications have been read.</p>
+												<ul>
+													@foreach ($readNotifications as $readNotifications)
+														<li class="read">
+															<a href="{{ route('notifications.markAsRead', $readNotifications->id) }}">
+																{{ $readNotifications->data['message'] }}
+															</a>
+														</li>
+													@endforeach
+												</ul>
+											@else
+												<p>No read notifications.</p>
+											@endif
+											<a href="{{ route('notifications.index') }}" class="btn btn-sm btn-primary">read all</a>
+										@else
+											
+											<p>There are no notifications.</p>
+										@endif
+									</div>
+								</div>
+								
+							</div>
+		
 							@include('customer.carts.cart')
 
 							<li><a href="/wishlist/list"><i class="lnr lnr-heart"></i><span class="my-cart"><span>Wish</span><span>list</span></span></a>

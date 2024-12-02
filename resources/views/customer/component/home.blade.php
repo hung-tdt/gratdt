@@ -220,3 +220,5 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="customer/fix/wishlist.js"></script>
 <script src="/customer/fix/addcart.js"></script>
+
+

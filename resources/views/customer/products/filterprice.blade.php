@@ -1,6 +1,6 @@
     @foreach($products as $key => $product)
         @php 
-            $a =($product->price-$product->price_sale);
+            $a =($product->price-$product->discounted_price);
             $b =  $product->price;
             $c = ($a/$b) *100;
             $percent =round($c, 0) ;
@@ -26,9 +26,13 @@
                 <div class="pro-content">
                     <div class="pro-info">
                         <h4><a href="/product/{{ $product->id }}-{{\Str::slug($product->name,'-')}}.html">{{$product->name}}</a></h4>
-                        <p><span class="price">${{number_format($product->price_sale, 0, ',', '.'). "" }}</span>
-                            <del class="prev-price">${{number_format($product->price, 0, ',', '.'). ""}}</del></p>
-                        <div class="label-product l_sale">{{$percent}}<span class="symbol-percent">%</span></div>
+                        @if($product->discounted_price < $product->price)
+                            <p><span class="price">${{number_format($product->discounted_price, 0, ',', '.'). "" }}</span>
+                                <del class="prev-price">${{number_format($product->price, 0, ',', '.'). ""}}</del></p>
+                            <div class="label-product l_sale">{{$percent}}<span class="symbol-percent">%</span></div>
+                        @else
+                            <p><span class="price">${{number_format($product->price, 0, ',', '.'). "" }}</span></p>                  
+                        @endif
                     </div>
                     <div class="pro-actions">
                         <div class="actions-primary">

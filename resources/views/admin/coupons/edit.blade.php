@@ -14,6 +14,11 @@
     @csrf
   <div class="wrapper wrapper-content animated fadeInRight ecommerce">
       <div class="ibox-content m-b-sm border-bottom">
+        <div class="form-group">
+          <label for="code">Coupon name</label>
+          <input type="text" value="{{ $coupon->name }}" class="form-control" id="name" name="name" required>
+        </div>
+
           <div class="form-group">
               <label for="code">Coupon Code</label>
               <input type="text" value="{{ $coupon->code }}" class="form-control" id="code" name="code" required>
@@ -39,7 +44,11 @@
 
           <div class="form-group">
               <label for="expiry_date">Expiry Date</label>
-              <input type="date" value="{{ $coupon->expiry_date }}" class="form-control" id="expiry_date" name="expiry_date">
+              <input type="date" 
+                  value="{{ \Carbon\Carbon::parse($coupon->expiry_date)->format('Y-m-d') }}" 
+                  class="form-control" 
+                  id="expiry_date" 
+                  name="expiry_date">
           </div>
 
           <div class="col-md-12">
@@ -54,6 +63,23 @@
               <div class="icheck-primary d-inline ml12">
                 <input value="0" type="radio" id="radioPrimary2" name="active" 
                 {{ $coupon->active==0 ? 'checked=""':''}}>
+                <label for="radioPrimary2">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <!-- radio -->
+            <label>For user special</label>
+            <div class="form-group clearfix">
+              <div class="icheck-primary d-inline ml12">
+                <input class="mt5" value="1" type="radio" id="radioPrimary3" name="forspecial"
+                {{ $coupon->forspecial==1 ? 'checked=""':''}}>
+                <label for="radioPrimary1">Yes</label>
+              </div>
+              <div class="icheck-primary d-inline ml12">
+                <input value="0" type="radio" id="radioPrimary4" name="forspecial" 
+                {{ $coupon->forspecial==0 ? 'checked=""':''}}>
                 <label for="radioPrimary2">No</label>
               </div>
             </div>

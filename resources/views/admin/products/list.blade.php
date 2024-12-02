@@ -63,7 +63,6 @@
                         <th>Catalog</th>
                         <th>Image</th>
                         <th>Price</th>
-                        <th>Price sale</th>
                         <th width='320px'>Quantity</th>
                         <th>Sold</th>              
                         <th>Active</th>              
@@ -81,7 +80,6 @@
                             <img src="{{ $product->thumb }}" height="40px"></a>
                         </td>
                         <td>${{ $product->price }}</td>                                    
-                        <td>${{ $product->price_sale }}</td> 
                         <td>{{ $product->quantity }} 
                             <div class="icon-add-quantity">
                                 <i class="fa fa-plus"></i>

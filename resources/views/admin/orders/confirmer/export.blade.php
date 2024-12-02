@@ -63,6 +63,20 @@
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3" class="text-right">Total</th>
+                <td>${{ number_format($order->total_amount + $order->discount) }}</td>
+            </tr>
+            <tr>
+                <th colspan="3" class="text-right">Discount</th>
+                <td>- ${{ number_format($order->discount) }}</td>
+            </tr>
+            <tr>
+                <th colspan="3" class="text-right">Total Amount</th>
+                <td>${{ number_format($order->total_amount) }}</td>
+            </tr>
+        </tfoot>
     </table>
 
     <h3>Total Amount: ${{ number_format($order->total_amount, 0, ',', '.') }}</h3>

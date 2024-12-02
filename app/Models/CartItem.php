@@ -21,4 +21,24 @@ class CartItem extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function getDiscountedPriceAttribute()
+    {
+        return $this->product->discounted_price ?? $this->product->price;
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->discounted_price * $this->quantity;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($cartItem) {
+            $price = $cartItem->product->discounted_price ?? $cartItem->product->price;
+            $cartItem->total = $cartItem->discounted_price * $cartItem->quantity;
+        });
+    }
+
 }

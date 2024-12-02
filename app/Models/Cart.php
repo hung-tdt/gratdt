@@ -20,4 +20,12 @@ class Cart extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function getTotalAttribute()
+    {
+        return $this->items->sum(function ($item) {
+            $price = $item->product->discounted_price ?? $item->product->price;
+            return $price * $item->quantity;
+        });
+    }
 }

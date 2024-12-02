@@ -17,13 +17,13 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="product">Tên sản phẩm</label>
+              <label for="product">Product name</label>
               <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="">
             </div>          
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <label>Mô tả ngắn</label>
+              <label>Description</label>
               <input type="text" name="description" value="{{ old('description') }}" class="form-control">
             </div>
           </div>
@@ -31,7 +31,7 @@
 
         <div class="row">
           <div class="col-sm-2">
-            <label for="price">Giá sản phẩm</label>
+            <label for="price">Price</label>
             <div class="input-group mb-3">
               <div class="custom-input-group">
                 <input class="form-control" type="number" name="price" value="{{ old('price') }}" placeholder="">
@@ -39,19 +39,10 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-2">
-            <label for="price_sale">Giá giảm sản phẩm</label>
-            <div class="input-group mb-3">
-              <div class="custom-input-group">
-                <input class="form-control" type="number" name="price_sale" value="{{ old('price_sale') }}" placeholder="">
-                
-              </div>
-            </div>
-          </div> 
            
           <div class="col-sm-3">
             <div class="form-group">
-              <label>Danh mục</label>
+              <label>Catalog</label>
                 <select class="form-control" name="product_category_id">            
                 @foreach($productCategories as $productCategory)
                 <option value="{{$productCategory->id}}">{{$productCategory->name}}</option>
@@ -62,15 +53,15 @@
 
           <div class="col-sm-3">
             <!-- radio -->
-            <label>Hiển thị</label>
+            <label>Active</label>
             <div class="form-group clearfix">
               <div class="icheck-primary d-inline ml12">
                 <input class="mt5" type="radio" value="1" id="radioPrimary1" name="active" checked="">
-                <label for="radioPrimary1">Có</label>
+                <label for="radioPrimary1">Yes</label>
               </div>
               <div class="icheck-primary d-inline ml12">
                 <input type="radio" value="0" id="radioPrimary2" name="active">
-                <label for="radioPrimary2">Không</label>
+                <label for="radioPrimary2">No</label>
               </div>
             </div>
           </div>
@@ -110,7 +101,7 @@
         <div class="row">
           <div class="col-sm-12">         
             <div class="form-group">
-              <label>Nội dung</label>
+              <label>Content</label>
               <textarea name="content" id="content">{{ old('content') }}</textarea>
             </div>
           </div>

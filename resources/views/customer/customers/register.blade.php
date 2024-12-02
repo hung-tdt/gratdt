@@ -17,8 +17,8 @@
 		<div class="container">
 			<div class="breadcrumb">
 				<ul class="d-flex align-items-center">
-					<li><a href="/">Trang chủ</a></li>
-					<li><a href="login">Đăng nhập</a></li>
+					<li><a href="/">Home</a></li>
+					<li class="active"><a href="/register.html">Register</a></li>
 				</ul>
 			</div>
 		</div>
@@ -87,6 +87,7 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <input type="hidden" name="active" value="1">    
                         
                         <div class="terms">
                             <div class="float-md-right">

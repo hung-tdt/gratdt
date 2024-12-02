@@ -46,7 +46,7 @@
         </div>
 
         <button style="margin-left: 0px;" type="button" class="btn btn btn-primary mt20 ml0"> <i class="fa fa-plus"></i>
-            <a class="font-white" href="{{ route('posts.add') }}"> Thêm mới bài viết</a>
+            <a class="font-white" href="{{ route('posts.add') }}"> Create post</a>
         </button> 
 
         <table id="postTable" class="tbf table mg10 mt20">

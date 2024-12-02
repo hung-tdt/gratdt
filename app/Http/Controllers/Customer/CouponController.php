@@ -11,6 +11,7 @@ class CouponController extends Controller
     public function showAvailableCoupons()
     {
         $availableCoupons = Coupon::where('active', 1)
+            ->where('forspecial', 0)
             ->where('expiry_date', '>', now())
             ->get();
 

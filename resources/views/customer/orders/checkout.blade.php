@@ -1,7 +1,7 @@
 @extends('customer.component.main')
 
 @section('content')
-
+<head><meta name="csrf-token" content="{{ csrf_token() }}"></head>
 <div class="breadcrumb-area mt-30">
     <div class="container">
         <div class="breadcrumb">
@@ -20,31 +20,7 @@
     </div>
 </div>
 
-<!-- coupon-area start -->
-<div class="coupon-area pt-100 pt-sm-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="coupon-accordion">
-                    <!-- ACCORDION START -->
-                    <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-                    <div id="checkout_coupon" class="coupon-checkout-content">
-                        <div class="coupon-info">
-                            <form action="#">
-                                <p class="checkout-coupon">
-                                    <input type="text" class="code" placeholder="Coupon code">
-                                    <input type="submit" value="Apply Coupon">
-                                </p>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- ACCORDION END -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- coupon-area end -->
+
 <!-- checkout-area start -->
 <form action="{{ route('placeOrder') }}" method="POST">
     @csrf
@@ -209,6 +185,24 @@
                     <div class="your-order">
                         <h3>Your order</h3>
                         <div class="your-order-table table-responsive">
+                                                                
+                            <div class="coupon-accordion">
+                                <!-- ACCORDION START -->
+                                <p>Have a coupon? <span id="showcoupon">Click here to enter your code</span></p>
+                                <div id="checkout_coupon" class="coupon-checkout-content">
+                                    <div class="coupon-info">
+                                        <form id="applyCouponForm" method="POST" action="{{ route('apply.coupon') }}">
+                                            @csrf
+                                            <p class="checkout-coupon" style="margin-top: 10px">
+                                                <input type="text" id="code" name="code" class="code" placeholder="Coupon code">
+                                                <button type="button" id="applyCouponBtn" class="btn btn-primary" style="margin-left: 10px; margin-bottom: 5px">Apply Coupon</button>
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- ACCORDION END -->
+                            </div>
+                            <div id="couponData" data-subtotal="{{ $subtotal }}"></div>
                             <table>
                                 <thead>
                                     <tr>
@@ -228,14 +222,24 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                
                                 <tfoot>
                                     <tr class="cart-subtotal">
-                                        <th>Cart Subtotal</th>
+                                        <th style="font-weight: 600">Cart Subtotal</th>
                                         <td><span class="amount">${{ number_format($subtotal) }}</span></td>
+                                    </tr>
+                                    <tr class="cart-subtotal">
+                                        <th style="font-weight: 600">Shipping fee</th>
+                                        <td><span class="amount">$0 (free ship)</span></td>
+                                    </tr>
+                                    <tr class="cart-subtotal">
+                                        <th style="font-weight: 600">Discount</th>
+                                        <td><span class="discount">-$0</span></td>
+                                        <input type="hidden" name="discount" value="">
                                     </tr>
                                     <tr class="order-total">
                                         <th>Order Total</th>
-                                        <td><span class=" total amount">${{ number_format($subtotal) }}</span></td>
+                                        <td><span class="total amount">${{ number_format($subtotal) }}</span></td>
                                     </tr>
                                     <tr class="order-total">
                                         @foreach($cart->items as $item)
@@ -267,9 +271,12 @@
     <input type="hidden" name="subtotal" value="{{ $subtotal }}">
 </form>
 @endsection
-
+<script>
+    const applyCouponUrl = "{{ route('apply.coupon') }}";
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/customer/fix/addressedit.js"></script>
+<script src="/customer/fix/checkout.js"></script>
 
 

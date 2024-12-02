@@ -10,13 +10,11 @@
             <div class="hot-deal-active3 owl-carousel">
                 @foreach($hotdealProducts as $key => $product)
                 @php
-                    // Tính phần trăm giảm giá
-                    $a = ($product->price - $product->price_sale);
-                    $b = $product->price;
-                    $c = ($a / $b) * 100;
-                    $percent = round($c, 0);
+                    $a =($product->price-$product->discounted_price);
+                    $b =  $product->price;
+                    $c = ($a/$b) *100;
+                    $percent =round($c, 0) ;
             
-                    // Giải mã chuỗi JSON chứa đường dẫn hình ảnh
                     $images = is_string($product->images) ? json_decode($product->images, true) : $product->images;
                 @endphp
                 <div class="row">
@@ -54,12 +52,22 @@
                     <!-- Thumbnail Description Start -->
                     <div class="col-lg-6 hot-product2">
                         <div class="thubnail-desc fix">
-                            <div class="countdown" data-countdown="2025/03/01"></div>
+                           
+                            @if($product->active_promotion_end_date)
+                                <div class="countdown" data-countdown="{{ $product->active_promotion_end_date }}"></div>
+                            @else
+                                <p>No active promotions for this product.</p>
+                            @endif
                             <h3><a href="/product/{{ $product->id }}-{{ \Str::slug($product->name,'-') }}.html">{{ $product->name }}</a></h3>
                             <div class="pro-price mtb-30">
-                                <p><span class="price">${{ number_format($product->price_sale, 0, ',', '.') }}</span>
+
+                                @if($product->discounted_price < $product->price)
+                                <p><span class="price">${{ number_format($product->discounted_price, 0, ',', '.') }}</span>
                                     <del class="prev-price">${{ number_format($product->price, 0, ',', '.') }}</del></p>
                                 <div class="label-product l_sale">{{ $percent }}<span class="symbol-percent">%</span></div>
+                                @else
+                                    <p><span class="price">${{number_format($product->price, 0, ',', '.'). "" }}</span></p>                  
+                                @endif
                             </div>
                             <p class="mb-30 pro-desc-details">{{ $product->description }}</p>
                             <div class="pro-actions">

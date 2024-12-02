@@ -138,25 +138,25 @@
 }
 
 .col-img {
-    position: relative; /* Tạo bối cảnh cho vị trí tuyệt đối của tiêu đề */
+    position: relative; 
 }
 
 .category-img {
-    height: 335px; /* Bạn có thể chỉnh chiều cao theo ý muốn */
-    width: auto; /* Đảm bảo ảnh chiếm hết chiều rộng của container */
-    object-fit: cover; /* Giúp ảnh giữ được tỉ lệ mà không bị méo */
-    border-radius: 8px; /* Tùy chọn: bo góc ảnh nếu bạn muốn */
+    height: 335px; 
+    width: auto; 
+    object-fit: cover; 
+    border-radius: 8px; 
 }
 
 .dd {
-    position: absolute; /* Đặt vị trí tuyệt đối cho tiêu đề */
-    top: 10px; /* Điều chỉnh vị trí từ trên xuống */
-    left: 10px; /* Điều chỉnh vị trí từ trái qua */
-    color: white; /* Màu chữ, thay đổi theo ý bạn */
-    z-index: 1; /* Đảm bảo chữ nằm trên ảnh */
-    background-color: rgba(158, 138, 138, 0.408); /* Thêm nền trắng mờ cho chữ dễ nhìn */
-    padding: 5px; /* Thêm khoảng cách giữa chữ và viền */
-    border-radius: 5px; /* Bo góc cho nền chữ */
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    color: white; 
+    z-index: 1; 
+    background-color: rgba(158, 138, 138, 0.408);
+    padding: 5px; 
+    border-radius: 5px; 
     font-weight: 300px;
     font-size: 22px;
 }
@@ -185,12 +185,12 @@ h3 {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    width: calc(33% - 20px); /* Adjust the width of each coupon */
+    width: calc(33% - 20px); 
     margin-bottom: 20px;
     padding: 20px;
     transition: box-shadow 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; /* Set relative positioning to allow absolute positioning for the badge */
+    position: relative; 
 }
 
 .coupon-card:hover {
@@ -256,25 +256,25 @@ h3 {
 
 
 button.place_order {
-    background-color: #01050a; /* Màu nền xanh dương */
-    color: white; /* Màu chữ trắng */
-    padding: 12px 24px; /* Khoảng cách padding */
-    border: none; /* Loại bỏ viền */
-    border-radius: 4px; /* Bo góc */
-    font-size: 16px; /* Cỡ chữ */
-    font-weight: bold; /* In đậm chữ */
-    text-transform: uppercase; /* Viết hoa chữ */
-    cursor: pointer; /* Thay đổi con trỏ khi hover */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng chuyển màu và phóng to khi hover */
+    background-color: #01050a; 
+    color: white; 
+    padding: 12px 24px; 
+    border: none; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button.place_order:hover {
-    background-color: #021222; /* Màu nền khi hover */
-    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+    background-color: #021222; 
+    transform: scale(1.05); 
 }
 
 button.place_order:active {
-    transform: scale(0.98); /* Thu nhỏ nhẹ khi bấm */
+    transform: scale(0.98); 
 }
 
 #wishlist-message {
@@ -299,10 +299,10 @@ button.place_order:active {
 
 .add-to-cart-button {
     display: inline-block;
-    line-height: 40px; /* Chiều cao tương đương với chiều cao của nút */
-    height: 40px; /* Chiều cao của nút */
-    padding: 0 15px; /* Khoảng cách ngang bên trong nút */
-    font-size: 14px; /* Kích thước chữ */
+    line-height: 40px; 
+    height: 40px; 
+    padding: 0 15px; 
+    font-size: 14px;
     text-align: center;
     vertical-align: middle;
     background-color: #f8f8f8;
@@ -425,10 +425,10 @@ label i.fa-star:hover ~ label i.fa-star {
 
 
 .out-of-stock {
-    background-color: #ea0909fe; /* Light charcoal */
-    color: white; /* Text color */
-    padding: 1px 5px; /* Optional: Add some padding around the text */
-    border-radius: 5px; /* Optional: Add rounded corners */
+    background-color: #ea0909fe; 
+    color: white; 
+    padding: 1px 5px; 
+    border-radius: 5px; 
   }
 
 .banner-text {
@@ -454,14 +454,14 @@ label i.fa-star:hover ~ label i.fa-star {
 }
 
 .fixed-frame {
-    width: 200px; /* Chiều rộng khung */
-    height: 200px; /* Chiều cao khung */
-    overflow: hidden; /* Ẩn phần ảnh thừa */
+    width: 200px; 
+    height: 200px; 
+    overflow: hidden; 
     display: flex;
-    justify-content: center; /* Canh giữa ảnh theo chiều ngang */
-    align-items: center; /* Canh giữa ảnh theo chiều dọc */
-    background-color: #f4f4f4; /* Màu nền trong trường hợp ảnh không tải */
-    border-radius: 8px; /* Bo góc nếu cần */
+    justify-content: center; 
+    align-items: center;
+    background-color: #f4f4f4; 
+    border-radius: 8px; 
 }
 
 .ml25 {
@@ -471,10 +471,114 @@ label i.fa-star:hover ~ label i.fa-star {
 .fixed-frame img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cắt ảnh theo kích thước khung mà không méo */
-    object-position: center; /* Canh giữa ảnh trong khung */
+    object-fit: cover; 
+    object-position: center; 
 }
 
 .mb50 {
     margin-bottom: 50px;
+}
+
+
+.notification-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-icon {
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+    position: relative;
+}
+
+.notification-icon:hover {
+    color: #007bff;
+}
+
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 5px;
+    border-radius: 50%;
+}
+
+
+.notification-list {
+    position: absolute;
+    max-height: 400px; 
+    overflow-y: auto; 
+    top: 40px;
+    right: 0;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+}
+
+.notification-list ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.notification-list ul li {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 14px;
+}
+
+.notification-list ul li:last-child {
+    border-bottom: none;
+}
+
+.notification-list p {
+    margin: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+
+.notification-list.active {
+    display: block;
+}
+
+
+.notification-list a.btn {
+    font-size: 12px;
+    color: #fff; 
+    background-color: #547496; 
+    padding: 2px 10px; 
+    margin-bottom: 10px; 
+    margin-right: 10px;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none; 
+    transition: all 0.3s ease; 
+    float: right;
+}
+
+.notification-list a.btn:hover {
+    background-color: #73a9df;
+}
+
+
+
+.notification-list a {
+    color: black; 
+    text-decoration: none; 
+    font-size: 12px;
+    font-weight: 300; 
+}
+
+.notification-list a:hover {
+    color: #ccc;  
 }

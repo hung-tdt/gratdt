@@ -89,7 +89,7 @@ class ProductCategoryService
 
         // Lấy sản phẩm từ danh mục cha và các danh mục con
         $query = \App\Models\Product::whereIn('product_category_id', $childCategories)
-            ->select('id', 'name', 'price', 'price_sale', 'thumb', 'thumb2', 'description')
+            ->select('id', 'name', 'price', 'thumb', 'thumb2', 'description')
             ->where('active', 1);
 
         return $query->orderByDesc('id')

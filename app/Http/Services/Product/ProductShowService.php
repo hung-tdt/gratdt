@@ -12,7 +12,7 @@ class ProductShowService
     
     public function get()
     {
-        return Product::select('id', 'name', 'price', 'price_sale', 'thumb', 'thumb2', 'quantity', 'description')
+        return Product::select('id', 'name', 'price', 'thumb', 'thumb2', 'quantity', 'description')
         ->orderBy('created_at', 'desc')
         ->limit(self::LIMIT)
         ->get();
@@ -20,13 +20,13 @@ class ProductShowService
 
     public function getlike()
     {
-        return Product::select('id', 'name', 'price', 'price_sale', 'thumb', 'thumb2', 'quantity', 'description')
+        return Product::select('id', 'name', 'price', 'thumb', 'thumb2', 'quantity', 'description')
         ->inRandomOrder()->limit(10)->get();
     }
 
     public function getAll()
     {
-        return Product::select('id', 'name', 'price', 'price_sale', 'thumb', 'thumb2', 'quantity', 'description')
+        return Product::select('id', 'name', 'price', 'thumb', 'thumb2', 'quantity', 'description')
         ->orderbyDesc('id')
         ->paginate(12);
     }
@@ -34,7 +34,7 @@ class ProductShowService
     public function filterProductName($request)
     {
         $name = $request->input('name');
-        return Product::select('id', 'name', 'price', 'price_sale', 'thumb', 'quantity', 'description')
+        return Product::select('id', 'name', 'price', 'thumb', 'quantity', 'description')
         ->where('name', 'like', "%$name%")
         ->paginate(12);
     }

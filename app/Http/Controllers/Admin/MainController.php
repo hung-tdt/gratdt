@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Customer;
 use App\Models\OrderDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -72,7 +73,7 @@ class MainController extends Controller
         $bestSellProductToday = Product::join('order_details', 'products.id', '=', 'order_details.product_id')
             ->whereDate('order_details.created_at', today())
             ->select('products.*', DB::raw('SUM(order_details.quantity) as total_sold'))
-            ->groupBy('products.id', 'products.name', 'products.price', 'products.price_sale', 'products.quantity', 
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.quantity', 
             'products.description', 'products.content', 'products.thumb', 'products.product_category_id', 'products.thumb2', 
             'products.images',  'products.active', 'products.sold_count', 'products.created_at', 'products.updated_at')  
             ->orderByDesc('total_sold')
@@ -83,7 +84,7 @@ class MainController extends Controller
             ->whereMonth('order_details.created_at', now()->month)
             ->whereYear('order_details.created_at', now()->year)
             ->select('products.*', DB::raw('SUM(order_details.quantity) as total_sold'))
-            ->groupBy('products.id', 'products.name', 'products.price', 'products.price_sale', 'products.quantity', 
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.quantity', 
             'products.description', 'products.content', 'products.thumb', 'products.product_category_id', 'products.thumb2', 
             'products.images',  'products.active', 'products.sold_count', 'products.created_at', 'products.updated_at')  
             ->orderByDesc('total_sold')
@@ -93,7 +94,7 @@ class MainController extends Controller
         $bestSellProductThisYear = Product::join('order_details', 'products.id', '=', 'order_details.product_id')
             ->whereYear('order_details.created_at', now()->year)
             ->select('products.*', DB::raw('SUM(order_details.quantity) as total_sold'))
-            ->groupBy('products.id', 'products.name', 'products.price', 'products.price_sale', 'products.quantity', 
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.quantity', 
             'products.description', 'products.content', 'products.thumb', 'products.product_category_id', 'products.thumb2', 
             'products.images',  'products.active', 'products.sold_count', 'products.created_at', 'products.updated_at')  
             ->orderByDesc('total_sold')
@@ -102,7 +103,7 @@ class MainController extends Controller
 
         $bestSellProductAll = Product::join('order_details', 'products.id', '=', 'order_details.product_id')
             ->select('products.*', DB::raw('SUM(order_details.quantity) as total_sold'))
-            ->groupBy('products.id', 'products.name', 'products.price', 'products.price_sale', 'products.quantity', 
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.quantity', 
             'products.description', 'products.content', 'products.thumb', 'products.product_category_id', 'products.thumb2', 
             'products.images',  'products.active', 'products.sold_count', 'products.created_at', 'products.updated_at')  
             ->orderByDesc('total_sold')
@@ -164,6 +165,11 @@ class MainController extends Controller
             $productSoldData[$data->month] = $data->total;
         }
 
+        $topCustomers = Customer::withCount('orders')
+            ->orderBy('orders_count', 'desc')
+            ->take(10) 
+            ->get();
+
         return view('admin.component.home', [
             'title' => 'Dashboard Admin',
             'waitingForConfirmationCount' => $waitingForConfirmationCount,
@@ -204,6 +210,8 @@ class MainController extends Controller
             'revenueData' => json_encode(array_values($revenueData)),
             'orderData' => json_encode(array_values($orderData)),
             'productSoldData' => json_encode(array_values($productSoldData)),
+
+            'topCustomers' => $topCustomers,
         ]);
     }
 

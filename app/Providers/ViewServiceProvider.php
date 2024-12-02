@@ -11,6 +11,7 @@ use App\Http\View\Composers\CustomerComposer;
 use App\Http\View\Composers\PostCategoryShowComposer;
 use App\Http\View\Composers\ProductCategoryShowComposer;
 use App\Http\View\Composers\CartComposer;
+use App\Http\View\Composers\NotificationComposer;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,6 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('customer.*',PostCategoryShowComposer::class);
         View::composer('customer.*', ProductCategoryShowComposer::class);
         View::composer('customer.*', CartComposer::class);
+        View::composer('customer.*', NotificationComposer::class);
     }
 }

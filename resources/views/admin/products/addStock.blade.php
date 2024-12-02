@@ -18,14 +18,20 @@
                   <label for="product">Product code</label>
                   <input type="text" name="id" value="{{ $product->id }}" class="form-control" disabled>
                 </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="product">Product code</label>
+                <input type="text" name="price" value="{{ $product->price }}" class="form-control" disabled>
               </div>
+          </div>
             <div class="col-md-4">
               <div class="form-group">
                 <label for="product">Name</label>
                 <input type="text" name="name" value="{{ $product->name }}" class="form-control" disabled>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Description</label>
                 <input name="description" id="description" value="{{ $product->description }}" class="form-control" disabled>
@@ -39,7 +45,7 @@
                     <label for="menu">Thumb</label>
                     <div id="image_show">
                         <a href="{{ $product->thumb }}" target="_blank">
-                        <img src="{{ $product->thumb }}" alt="" width="200px">
+                        <img src="{{ $product->thumb }}" alt="" width="140px">
                         </a>
                     </div>
                 </div>
@@ -51,7 +57,7 @@
                 <div id="image-preview">
                   @if($product->images)
                       @foreach($product->images as $image)
-                          <img src="{{ url($image) }}" alt="Product Image" style="width : 200px">
+                          <img src="{{ url($image) }}" alt="Product Image" style="width : 140px">
                       @endforeach
                   @endif
                 </div>

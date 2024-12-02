@@ -24,15 +24,23 @@ class PostController extends Controller
             ->orderbyDesc('id')
             ->limit(3)
             ->get();
-        $hotdealProducts = Product::select('*', DB::raw('price / price_sale as discount_ratio'))
-        ->orderByDesc('discount_ratio')
-        ->limit(3)
-        ->get();
+            
+        $hotdealProducts = Product::with('promotions')
+            ->get()
+            ->filter(function ($product) {
+                return $product->discounted_price < $product->price;
+            })
+            ->sortByDesc(function ($product) {
+                return ($product->price - $product->discounted_price) / $product->price;
+            })
+            ->take(3);
         $bestSellerProducts = Product::orderbyDesc('sold_count')->limit(3)->get();
         
         $post = $this->postshowService->show($id);
+       
         $comments = Comment::where('post_id', $post->id)->get();
         $post->load('comments.replies');
+
         return view('customer.posts.detail',[
             'bestSellerProducts' =>  $bestSellerProducts,   
             'hotdealProducts' =>  $hotdealProducts, 

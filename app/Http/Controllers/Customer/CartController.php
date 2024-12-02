@@ -29,12 +29,13 @@ class CartController extends Controller
             ]);
         }
     
+        $price = $product->discounted_price ?? $product->price;
         $cart = Cart::firstOrCreate(['customer_id' => $customer->id]);
     
         $cartItem = CartItem::where('cart_id', $cart->id)
             ->where('product_id', $product->id)
             ->first();
-    
+        
         if ($cartItem) {
             
             if ($cartItem->quantity + $quantity > $product->quantity) {
@@ -45,15 +46,16 @@ class CartController extends Controller
             }
     
             $cartItem->quantity += $quantity;
-            $cartItem->total = $cartItem->quantity * $cartItem->price;
+            $cartItem->price = $price; 
+            $cartItem->total = $cartItem->quantity * $price;
             $cartItem->save();
         } else {
             CartItem::create([
                 'cart_id' => $cart->id,
                 'product_id' => $product->id,
                 'quantity' => $quantity,
-                'price' => $product->price_sale,
-                'total' => $quantity * $product->price_sale,
+                'price' => $price,  
+                'total' => $quantity * $price,
             ]);
         }
     
@@ -114,45 +116,53 @@ class CartController extends Controller
     }
 
     public function updateQuantity(Request $request, $id)
-    {
-        $request->validate([
-            'quantity' => 'required|integer|min:1',
-        ]);
+{
+    $request->validate([
+        'quantity' => 'required|integer|min:1',
+    ]);
 
-        try {
-            $cartItem = CartItem::findOrFail($id);
-            $product = $cartItem->product;
+    try {
+        $cartItem = CartItem::findOrFail($id);
+        $product = $cartItem->product;
 
-            // Kiểm tra nếu số lượng yêu cầu vượt quá tồn kho
-            if ($request->quantity > $product->quantity) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'The product "' . $product->name . '" does not have enough stock. Available quantity: ' . $product->quantity,
-                ]);
-            }
+        // Lấy giá trị price (discounted_price nếu có, hoặc price nếu không có)
+        $price = $product->discounted_price ?? $product->price;
 
-            // Cập nhật số lượng và tổng tiền nếu số lượng hợp lệ
-            $cartItem->quantity = $request->quantity;
-            $cartItem->total = $product->price_sale * $cartItem->quantity; 
-            $cartItem->save();
-
-            // Lấy lại giỏ hàng sau khi cập nhật
-            $cartsmall = Cart::with('items.product')->where('customer_id', Auth::guard('customer')->id())->first();
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Quantity updated successfully',
-                'total' => number_format($cartItem->total),
-                'subtotal' => number_format($cartItem->cart->items->sum('total')), 
-                'cartsmall' => $cartsmall,
-            ]);
-        } catch (\Exception $e) {
+        // Kiểm tra nếu số lượng yêu cầu vượt quá tồn kho
+        if ($request->quantity > $product->quantity) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Something went wrong',
-            ], 500);
+                'message' => 'The product "' . $product->name . '" does not have enough stock. Available quantity: ' . $product->quantity,
+            ]);
         }
+        
+        // Cập nhật số lượng và tính lại giá trị total
+        $cartItem->quantity = $request->quantity;
+        $cartItem->price = $price;
+        $cartItem->total = $price * $cartItem->quantity;
+        $cartItem->save();
+
+        // Lấy lại giỏ hàng sau khi cập nhật
+        $cartsmall = Cart::with('items.product')->where('customer_id', Auth::guard('customer')->id())->first();
+
+        // Tính lại subtotal bằng cách sum tổng của tất cả các item trong giỏ hàng
+        $subtotal = $cartsmall->items->sum('total'); // Sử dụng Eloquent collection để tính tổng chính xác
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Quantity updated successfully',
+            'total' => number_format($cartItem->total),
+            'subtotal' => number_format($subtotal), 
+            'cartsmall' => $cartsmall,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Something went wrong',
+        ], 500);
     }
+}
+
 
 }
 

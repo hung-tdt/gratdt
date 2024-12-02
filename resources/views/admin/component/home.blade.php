@@ -457,7 +457,6 @@
                                 <th>Catalog</th>
                                 <th>Image</th>
                                 <th>Price</th>
-                                <th>Price sale</th>
                                 <th width='320px'>Quantity</th>
                                 <th>Sold</th>              
                                 <th>Active</th>              
@@ -475,7 +474,6 @@
                                     <img src="{{ $product->thumb }}" height="40px"></a>
                                 </td>
                                 <td>${{ $product->price }}</td>                                    
-                                <td>${{ $product->price_sale }}</td> 
                                 <td>{{ $product->quantity }} 
                                     <div class="icon-add-quantity">
                                         <i class="fa fa-plus"></i>
@@ -520,7 +518,6 @@
                                 <th>Catalog</th>
                                 <th>Image</th>
                                 <th>Price</th>
-                                <th>Price sale</th>
                                 <th width='320px'>Quantity</th>
                                 <th>Sold</th>
                                 <th>Active</th>              
@@ -538,7 +535,6 @@
                                     <img src="{{ $product->thumb }}" height="40px"></a>
                                 </td>
                                 <td>${{ $product->price }}</td>                                    
-                                <td>${{ $product->price_sale }}</td> 
                                 <td>{{ $product->quantity }} 
                                     <div class="icon-add-quantity">
                                         <i class="fa fa-plus"></i>
@@ -584,7 +580,6 @@
                                 <th>Catalog</th>
                                 <th>Image</th>
                                 <th>Price</th>
-                                <th>Price sale</th>
                                 <th width='320px'>Quantity</th>
                                 <th>Sold</th>
                                 <th>Active</th>              
@@ -602,7 +597,6 @@
                                     <img src="{{ $product->thumb }}" height="40px"></a>
                                 </td>
                                 <td>${{ $product->price }}</td>                                    
-                                <td>${{ $product->price_sale }}</td> 
                                 <td>{{ $product->quantity }} 
                                     <div class="icon-add-quantity">
                                         <i class="fa fa-plus"></i>
@@ -648,7 +642,6 @@
                                 <th>Catalog</th>
                                 <th>Image</th>
                                 <th>Price</th>
-                                <th>Price sale</th>
                                 <th width='320px'>Quantity</th>
                                 <th>Sold</th>
                                 <th>Active</th>              
@@ -666,7 +659,6 @@
                                     <img src="{{ $product->thumb }}" height="40px"></a>
                                 </td>
                                 <td>${{ $product->price }}</td>                                    
-                                <td>${{ $product->price_sale }}</td> 
                                 <td>{{ $product->quantity }} 
                                     <div class="icon-add-quantity">
                                         <i class="fa fa-plus"></i>
@@ -694,6 +686,82 @@
                                 </td>
                             </tr>
                             @endforeach               
+                        </tbody>      
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Top customers </h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>   
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="table-responsive">
+                <div class="ibox-content">
+                    <table class="tbf table mg10 mt20">
+                        <thead>
+                            <tr>
+                                <th>Customer code</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Avatar</th>                            
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Amount order</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($topCustomers as $key => $customer) 
+
+                        <tr>
+                            <td>{{ $customer->id }}</td>                                    
+                            <td>{{ $customer->name }}</td>                                    
+                            <td>{{ $customer->username }}</td> 
+                            @if($customer->thumb == null)
+                            <td></td>
+                            @else
+                                <td>
+                                    <a href="{{ $customer->thumb }}" target="_blank">
+                                        <img src="{{ $customer->thumb }}" height="30px">
+                                    </a>
+                                </td>
+                            @endif                                   
+                            <td>{{ $customer->phone }}</td>
+                            <td>{{ $customer->email }}</td>
+                            <td style="text-align: center">{!! \App\Helpers\Helper::active($customer->active) !!}</td>   
+                            <td>{{ $customer->orders->count() }}</td>
+                            <td>                    
+                                <div class="button-row1">                       
+                                    <a style="margin: 1px" class="btn btn-success dim" 
+                                        href="{{ route('customers.edit', ['id' => $customer->id]) }}">
+                                        <i class="fa fa-edit (alias)"></i>
+                                    </a>    
+                                    <a style="margin: 1px" class="btn btn-danger  dim " href="#"
+                                        onclick="removeRow({{ $customer->id }}, '{{ route('customers.destroy', ['id' => $customer->id]) }}')">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>  
+                            </td>
+                        </tr>
+                        @endforeach
+  
                         </tbody>      
                     </table>
 

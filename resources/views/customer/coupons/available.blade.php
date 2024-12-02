@@ -12,7 +12,10 @@
                         {{ $coupon->max_uses }} remaining
                     </span>
                     <div class="coupon-code mt10">
-                        <strong>{{ $coupon->code }}</strong>
+                        <strong>{{ $coupon->name }}</strong>
+                    </div>
+                    <div class="coupon-info">
+                        <span>Code: {{ $coupon->code }}</span>
                     </div>
                     <div class="coupon-info">
                         <span>Discount: 
@@ -21,21 +24,13 @@
                             @else
                                 {{number_format($coupon->discount_value, 0, ',', '.'). "" }} $
                             @endif
-                        </span>
-                        <br>
+                        </span>                   
+                        
+                    </div>
+                    <div class="coupon-info">
                         <span>Expiry Date: {{ $coupon->expiry_date->format('d-m-Y') }}</span>
                     </div>
-                    <div class="coupon-action">
-                        @if(!$coupon->savedByUser(auth()->user()))
-                            <form action="{{ route('coupons.save') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="coupon_code" value="{{ $coupon->code }}">
-                                <button type="submit" class="save-btn">Save this Coupon</button>
-                            </form>
-                        @else
-                            <span class="saved-msg">You have already saved this coupon.</span>
-                        @endif
-                    </div>
+                    
                 </div>
             @endforeach
         </div>

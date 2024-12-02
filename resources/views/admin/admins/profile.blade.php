@@ -25,7 +25,7 @@
                             <h4 style="margin-top: 20px"> Email : {{$admin->email}}</h4>
                             <h4 style="margin-top: 20px"> Phone : {{$admin->phone}}</h4>
                             <h4 style="margin-top: 20px">
-                                Vai trò : {{$admin->roles->name}}
+                                Vai trò : {{$admin->role->name}}
                             </h4>
                             
                         </div>

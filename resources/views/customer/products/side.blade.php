@@ -37,7 +37,7 @@
             <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 810px;"><div class="owl-item active" style="width: 270px;"><div class="side-pro-item">
                 @foreach($hotdealProducts as $key => $product)
                 @php 
-                    $a =($product->price-$product->price_sale);
+                    $a =($product->price-$product->discounted_price);
                     $b =  $product->price;
                     $c = ($a/$b) *100;
                     $percent =round($c, 0) ;
@@ -50,14 +50,21 @@
                                 <img class="primary-img" src="{{ $product->thumb }}" alt="{{$product->name}}">
                                 <img class="secondary-img" src="{{ $product->thumb2 }}" alt="{{$product->name}}">
                             </a>
-                            <div class="label-product l_sale">{{$percent}}<span class="symbol-percent">%</span></div>
+                            @if($product->discounted_price < $product->price)
+                                <div class="label-product l_sale">{{$percent}}<span class="symbol-percent">%</span></div>                
+                            @endif
+                            
                         </div>
                         <!-- Product Image End -->
                         <!-- Product Content Start -->
                         <div class="pro-content">
-                            <h4><a href="/product/{{ $product->id }}-{{\Str::slug($product->name,'-')}}.html">{{$product->name}}</a></h4>
-                            <p><span class="price">${{number_format($product->price_sale, 0, ',', '.'). "" }}</span>
-                                <del class="prev-price">${{number_format($product->price, 0, ',', '.'). "" }}</del></p>
+                            <h4><a href="product.html">{{$product->name}}</a></h4>
+                            @if($product->discounted_price < $product->price)
+                                <p><span class="price">${{number_format($product->discounted_price, 0, ',', '.'). "" }}</span>
+                                    <del class="prev-price">${{number_format($product->price, 0, ',', '.'). ""}}</del></p>											
+                            @else
+                            <p><span class="price">${{number_format($product->price, 0, ',', '.'). "" }}</span></p>                  
+                            @endif
                         </div>
                         <!-- Product Content End -->
                     </div>
@@ -76,7 +83,7 @@
             <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 810px;"><div class="owl-item active" style="width: 270px;"><div class="side-pro-item">
                 @foreach($bestSellerProducts as $key => $product)
                 @php 
-                    $a =($product->price-$product->price_sale);
+                    $a =($product->price-$product->discounted_price);
                     $b =  $product->price;
                     $c = ($a/$b) *100;
                     $percent =round($c, 0) ;
@@ -89,14 +96,21 @@
                                 <img class="primary-img" src="{{ $product->thumb }}" alt="{{$product->name}}">
                                 <img class="secondary-img" src="{{ $product->thumb2 }}" alt="{{$product->name}}">
                             </a>
-                            <div class="label-product l_sale">{{$percent}}<span class="symbol-percent">%</span></div>
+                            @if($product->discounted_price < $product->price)
+                                <div class="label-product l_sale">{{$percent}}<span class="symbol-percent">%</span></div>                
+                            @endif
+                            
                         </div>
                         <!-- Product Image End -->
                         <!-- Product Content Start -->
                         <div class="pro-content">
-                            <h4><a href="/product/{{ $product->id }}-{{\Str::slug($product->name,'-')}}.html">{{$product->name}}</a></h4>
-                            <p><span class="price">${{number_format($product->price_sale, 0, ',', '.'). "" }}</span>
-                                <del class="prev-price">${{number_format($product->price, 0, ',', '.'). "" }}</del></p>
+                            <h4><a href="product.html">{{$product->name}}</a></h4>
+                            @if($product->discounted_price < $product->price)
+                                <p><span class="price">${{number_format($product->discounted_price, 0, ',', '.'). "" }}</span>
+                                    <del class="prev-price">${{number_format($product->price, 0, ',', '.'). ""}}</del></p>											
+                            @else
+                            <p><span class="price">${{number_format($product->price, 0, ',', '.'). "" }}</span></p>                  
+                            @endif
                         </div>
                         <!-- Product Content End -->
                     </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PostCategoryController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\PromotionController;
 use App\Http\Controllers\Admin\HomePageController;
 
 use App\Http\Controllers\Admin\UploadController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\Customer\AboutController;
 use App\Http\Controllers\Customer\WishlistController;
 use App\Http\Controllers\Customer\CommentController;
 use App\Http\Controllers\Customer\ReviewController;
+use App\Http\Controllers\NotificationController;
 
 use App\Http\Controllers\PaymentController;
 
@@ -88,6 +90,8 @@ Route::middleware(['auth:admin'])->group(function (){
             Route::delete('destroy',[CustomerController::class,'destroy'])->name('customers.destroy')->middleware('can:customers.destroy');     
             
             Route::get('/search', [CustomerController::class, 'search'])->name('customers.search')->middleware('can:customers.list');
+            Route::post('/notifications', [NotificationController::class, 'send'])->name('notifications.send');
+
         });
 
         Route::prefix('product_categories')->group(function () {
@@ -153,6 +157,15 @@ Route::middleware(['auth:admin'])->group(function (){
             Route::get('/search', [CouponController::class, 'search'])->name('posts.search')->middleware('can:coupons.list');
         });
 
+        Route::prefix('promotions')->group(function () {
+            Route::get('add', [PromotionController::class, 'add'])->name('promotions.add')->middleware('can:promotions.add');
+            Route::post('add', [PromotionController::class, 'store'])->name('promotions.store')->middleware('can:promotions.add');
+            Route::get('list',[PromotionController::class,'list'])->name('promotions.list')->middleware('can:promotions.list');
+            Route::get('edit/{id}',[PromotionController::class,'edit'])->name('promotions.edit')->middleware('can:promotions.edit');
+            Route::post('edit/{id}',[PromotionController::class,'update'])->name('promotions.update')->middleware('can:promotions.edit');
+            Route::delete('destroy',[PromotionController::class,'destroy'])->name('promotions.destroy')->middleware('can:promotions.destroy');  
+        });
+
         Route::prefix('sliders')->group(function () {
             Route::get('add',[SliderController::class,'add'])->name('sliders.add')->middleware('can:sliders.add');
             Route::post('add',[SliderController::class,'store'])->name('sliders.store')->middleware('can:sliders.add');
@@ -196,7 +209,6 @@ Route::middleware(['auth:admin'])->group(function (){
 });
 
 
-
 //login
 Route::get('/login.html', [App\Http\Controllers\Customer\Auth\LoginController::class, 'login'])->name('customer.login');
 Route::post('/login/store', [App\Http\Controllers\Customer\Auth\LoginController::class, 'loginStore']); 
@@ -238,7 +250,6 @@ Route::get('/filter-by-price', [App\Http\Controllers\Customer\ProductController:
 
 
 Route::get('/coupons', [App\Http\Controllers\Customer\CouponController::class, 'showAvailableCoupons'])->name('coupons.index');
-Route::post('/coupons/save', [App\Http\Controllers\Customer\CouponController::class, 'saveCoupon'])->name('coupons.save');
 
 Route::post('/coupons/apply', [App\Http\Controllers\Customer\CouponController::class, 'apply'])->name('coupons.apply');
 
@@ -274,6 +285,11 @@ Route::get('/orderdetail/{order_detail_id}/product/{product_id}/review', [Review
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 Route::post('/vnpay_payment', [PaymentController::class, 'vnpay_payment']);
+
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/notifications/mark-as-read/{notificationId}', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+Route::post('/apply-coupon', [OrderController::class, 'applyCoupon'])->name('apply.coupon');
 
 
 

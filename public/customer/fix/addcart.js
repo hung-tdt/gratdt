@@ -6,6 +6,14 @@ function updateCartView(cart) {
 
     if (cart.items.length > 0) {
         cart.items.forEach(function(item) {
+            var price = item.price;
+            var total = item.total;
+            var priceHtml = `
+                <div style="display: flex; justify-content: space-between;">
+                    <span class="cart-price">$${price.toFixed(2)}</span>
+                    <span class="price-content" style="margin-top: 5px">$${total.toFixed(2)}</span>
+                </div>
+            `;
             cartContent += `
                 <div class="single-cart-box">
                     <div class="cart-img">
@@ -18,8 +26,9 @@ function updateCartView(cart) {
                         <h6>
                             <a href="/product/${item.product.id}-${item.product.name.replace(/ /g, '-').toLowerCase()}.html">${item.product.name}</a>
                         </h6>
-                        <span class="cart-price">$${item.total}</span>
+                        ${priceHtml}
                     </div>
+                    
                 </div>
             `;
         });
@@ -35,7 +44,7 @@ function updateCartView(cart) {
             </div>
         `;
     } else {
-        cartContent += '<p>Giỏ hàng của bạn trống</p>';
+        cartContent += '<p>Your cart is empty</p>';
     }
 
     cartContent += '</li>'; 
@@ -66,15 +75,23 @@ $(document).ready(function() {
                 _token: $('meta[name="csrf-token"]').attr('content') // 
             },
             success: function(response) {
+                const $messageBox = $('#wishlist-message');
+
                 if (response.success) {
-                    $('#wishlist-message').removeClass('alert-danger').addClass('alert-success').text(response.message).show();
+                    $messageBox.removeClass('alert-danger').addClass('alert-success').text(response.message).show();
                 } else {
-                    $('#wishlist-message').removeClass('alert-success').addClass('alert-danger').text(response.message).show();
+                    $messageBox.removeClass('alert-success').addClass('alert-danger').text(response.message).show();
                 }
-                updateCartView(response.cart); 
-                setTimeout(function() {
-                    $('#wishlist-message').fadeOut(500); 
-                }, 3000);
+                
+                if (window.messageTimeout) {
+                    clearTimeout(window.messageTimeout);
+                }
+
+                window.messageTimeout = setTimeout(function() {
+                    $messageBox.fadeOut(500);
+                }, 2000);
+
+                updateCartView(response.cart);
             },
             error: function(xhr, status, error) {
                 $('#wishlist-message').removeClass('alert-success').addClass('alert-danger').text('An error occurred. Please try again.').show();

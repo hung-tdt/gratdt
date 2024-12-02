@@ -29,10 +29,15 @@ class HomeController extends Controller
  
     public function index()
     {
-        $hotdealProducts = Product::select('*', DB::raw('price / price_sale as discount_ratio'))
-        ->orderByDesc('discount_ratio')
-        ->limit(4)
-        ->get();
+        $hotdealProducts = Product::with('promotions')
+            ->get()
+            ->filter(function ($product) {
+                return $product->discounted_price < $product->price;
+            })
+            ->sortByDesc(function ($product) {
+                return ($product->price - $product->discounted_price) / $product->price;
+            })
+            ->take(8);
         $newProducts = Product::orderbyDesc('id')->limit(10)->get();
         $bestSellerProducts = Product::orderbyDesc('sold_count')->limit(7)->get();
         $categories = ProductCategory::where('showhome', 1)->with('products')->get();

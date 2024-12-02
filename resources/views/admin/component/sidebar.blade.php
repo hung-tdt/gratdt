@@ -21,84 +21,72 @@
                         </ul>
                     @endcan
                 </li>
-                
                 <li>
                     @can('admins.list')
-                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Manage employees</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            @can('admins.list')
-                                <li><a href="{{ route('admins.index') }}">List of accounts</a></li>
-                            @endcan
-                            @can('roles.list')
-                                <li><a href="{{ route('roles.index') }}">List of roles</a></li>
-                            @endcan
-                        </ul>
+                        <a href="{{ route('admins.index') }}"><i class="fa fa-sitemap"></i> <span class="nav-label">Manage employees</span></a>
                     @endcan
                 </li>
-                
+
+                <li>
+                    @can('roles.list')
+                        <a href="{{ route('roles.index') }}"><i class="fa fa-sitemap"></i> <span class="nav-label">Manage roles</span></a>
+                    @endcan
+                </li>
+
                 <li>
                     @can('customers.list')
-                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Manage customers</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ route('customers.index') }}">Customer List</a></li>
-                        </ul>
+                        <a href="{{ route('customers.index') }}"><i class="fa fa-sitemap"></i> <span class="nav-label">Manage customers</span></a>
                     @endcan
                 </li>
-                
+
                 <li>
                     @can('posts.list')
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Manage posts</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            @can('posts.list')
-                                <li><a href="{{ route('posts.list') }}">List of posts</a></li>
-                            @endcan
-                            @can('post_categories.list')
-                                <li><a href="{{ route('post_categories.list') }}">Article categories</a></li>
-                            @endcan
-                        </ul>
+                        <a href="{{ route('posts.list') }}"><i class="fa fa-edit"></i> <span class="nav-label">Manage posts</span></a>
+                    @endcan
+                </li>
+
+                <li>
+                    @can('post_categories.list')
+                        <a href="{{ route('post_categories.list') }}"><i class="fa fa-edit"></i> <span class="nav-label">Article categories</span></a>
                     @endcan
                 </li>
                 
                 <li>
                     @can('coupons.list')
-                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Manage Coupon</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ route('coupons.list') }}">Coupon List</a></li>
-                        </ul>
+                        <a href="{{ route('coupons.list') }}"><i class="fa fa-files-o"></i> <span class="nav-label">Manage coupons</span></a>
                     @endcan
                 </li>
-                
+           
+                <li>
+                    @can('promotions.list')
+                        <a href="{{ route('promotions.list') }}"><i class="fa fa-files-o"></i> <span class="nav-label">Manage promotions</span></a>
+                    @endcan
+                </li>
+
                 <li>
                     @can('products.list')
-                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">Manage products</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            @can('products.list')
-                                <li><a href="{{ route('products.list') }}">Product List</a></li>
-                            @endcan
-                            @can('product_categories.list')
-                                <li><a href="{{ route('product_categories.list') }}">Product Catalog</a></li>
-                            @endcan
-                        </ul>
+                        <a href="{{ route('products.list') }}"><i class="fa fa-table"></i> <span class="nav-label">Manage products</span></a>
+                    @endcan
+                </li>
+
+                <li>
+                    @can('product_categories.list')
+                        <a href="{{ route('product_categories.list') }}"><i class="fa fa-files-o"></i> <span class="nav-label">Product Catalogs</span></a>
                     @endcan
                 </li>
                 
                 <li>
                     @can('stocks.all.history')
-                        <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">Manage Stock History</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ route('stock.history') }}">All stock History</a></li>
-                        </ul>
+                        <a href="{{ route('stock.history') }}"><i class="fa fa-files-o"></i> <span class="nav-label">Manage Stock History</span></a>
                     @endcan
                 </li>
                 
                 <li>
                     @can('sliders.list')
-                        <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">Manage Ads</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse">
-                            <li><a href="{{ route('sliders.list') }}">Ads List</a></li>
-                        </ul>
+                        <a href="{{ route('sliders.list') }}"><i class="fa fa-files-o"></i> <span class="nav-label">Manage sliders</span></a>
                     @endcan
                 </li>
+                
                 
                 <li>
                    

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Notifications\OrderStatusNotification;
 
 class OrderController extends Controller
 {
@@ -29,9 +30,11 @@ class OrderController extends Controller
 
     public function updateOrderconfirmed(Request $request, Order $order)
     {
-
         $order->status = $request->status;
         $order->save();
+
+        // Gửi thông báo
+        $this->sendOrderStatusNotification($order, 'has been confirmed');
 
         return redirect()->route('orders.pending')->with('success', 'Order confirmed successfully.');
     }
@@ -78,11 +81,13 @@ class OrderController extends Controller
 
     public function updateshippingconfirmed(Request $request, Order $order)
     {
-
         $order->status = $request->status;
         $order->save();
 
-        return redirect()->route('orders.orderconfirmed')->with('success', 'Order confirmed successfully.');
+        // Gửi thông báo
+        $this->sendOrderStatusNotification($order, 'has been shipping');
+
+        return redirect()->route('orders.orderconfirmed')->with('success', 'Shipping confirmed successfully.');
     }
 
     public function shipping()
@@ -114,24 +119,29 @@ class OrderController extends Controller
     {
         $order->status = 'received';
         $order->save();
-    
+
+        // Cập nhật số lượng bán
         foreach ($order->details as $detail) {
             $product = Product::find($detail->product_id);
-    
+
             if ($product) {
                 $product->sold_count += $detail->quantity;
-
                 $product->save();
             }
         }
-        return redirect()->back()->with('success', 'Order confirmed successfully, and product sold counts have been updated.');
+
+        // Gửi thông báo
+        $this->sendOrderStatusNotification($order, 'delivered successfully');
+
+        return redirect()->back()->with('success', 'Order received successfully, and product sold counts have been updated.');
     }
 
     public function canceledupdate(Request $request, Order $order)
-    {
+{
         $order->status = 'cancelled';
         $order->save();
 
+        // Khôi phục số lượng sản phẩm
         foreach ($order->details as $detail) {
             $product = Product::find($detail->product_id);
 
@@ -140,6 +150,9 @@ class OrderController extends Controller
                 $product->save();
             }
         }
+
+        // Gửi thông báo
+        $this->sendOrderStatusNotification($order, 'has been cancelled');
 
         return redirect()->back()->with('success', 'Order has been cancelled successfully, and product quantities have been restored.');
     }
@@ -211,6 +224,14 @@ class OrderController extends Controller
         return $pdf->download('orders_report.pdf');
     }
 
+    protected function sendOrderStatusNotification(Order $order, string $statusMessage)
+    {
+        $customer = $order->customer;
+
+        if ($customer) {
+            $customer->notify(new OrderStatusNotification($order->id, $order->order_number, $statusMessage));
+        }
+    }
 }
 
 

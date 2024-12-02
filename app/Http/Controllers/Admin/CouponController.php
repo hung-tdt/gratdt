@@ -23,10 +23,20 @@ class CouponController extends Controller
     {
         $request->validate([
             'code' => 'required|unique:coupons,code',
+            'name' => 'required',
             'discount_type' => 'required',
-            'discount_value' => 'required|min:0',
+            'discount_value' => [
+                'required',
+                'numeric',
+                'min:0',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->discount_type == 1 && $value >= 100) {
+                        $fail('The discount value must be less than 100 when the discount type is percentage.');
+                    }
+                },
+            ],
             'max_uses' => 'nullable|integer|min:1',
-            'expiry_date' => 'nullable|date',
+            'expiry_date' => 'required|date',
         ]);
 
         Coupon::create($request->all());
@@ -43,16 +53,27 @@ class CouponController extends Controller
     {
         $request->validate([
             'code' => 'required|unique:coupons,code,' . $coupon->id,
+            'name' => 'required',
             'discount_type' => 'required',
-            'discount_value' => 'required|min:0',
+            'discount_value' => [
+                'required',
+                'numeric',
+                'min:0',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->discount_type == 1 && $value >= 100) {
+                        $fail('The discount value must be less than 100 when the discount type is percentage.');
+                    }
+                },
+            ],
             'max_uses' => 'nullable|integer|min:1',
-            'expiry_date' => 'nullable|date',
+            'expiry_date' => 'required|date',
         ]);
 
         $coupon->update($request->all());
 
         return redirect()->route('coupons.list')->with('success', 'Coupon updated successfully.');
     }
+
 
     public function destroy(Coupon $coupon)
     {

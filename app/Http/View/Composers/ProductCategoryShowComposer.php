@@ -16,7 +16,7 @@ class ProductCategoryShowComposer
      
     public function compose(View $view): void
     {
-       $productCategories= ProductCategory::select('id', 'name', 'parent_id')->where('active', 1)->orderBydesc('id')->get();
+       $productCategories= ProductCategory::select('id', 'name', 'parent_id')->where('active', 1)->orderBy('id')->get();
        $view->with('productCategories', $productCategories);
     }
 }

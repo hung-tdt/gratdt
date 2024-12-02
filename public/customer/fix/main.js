@@ -30,4 +30,20 @@ $(document).on('change', '#upload', function() {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const notificationIcon = document.getElementById('notification-icon');
+    const notificationList = document.getElementById('notification-list');
+
+    notificationIcon.addEventListener('click', () => {
+        // Toggle lớp active để hiển thị/ẩn danh sách thông báo
+        notificationList.classList.toggle('active');
+    });
+
+    // Ẩn danh sách thông báo khi nhấn ra ngoài
+    document.addEventListener('click', (event) => {
+        if (!notificationIcon.contains(event.target) && !notificationList.contains(event.target)) {
+            notificationList.classList.remove('active');
+        }
+    });
+});
 

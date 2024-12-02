@@ -34,17 +34,17 @@
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->phone }}</td>
                         <td>{{ $order->shipping_address }}</td>
-                        <td>{{ $order->total_amount }}</td>
+                        <td>${{ $order->total_amount }}</td>
                         <td>{{ $order->status }}</td>
                         <td>{{ $order->order_date }}</td>
                         <td>
                             <form action="{{ route('orders.receivedupdate', $order->id) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-info">Giao thành công</button>
+                                <button type="submit" class="btn btn-info">Successful</button>
                             </form>
                             <form action="{{ route('orders.canceledupdate', $order->id) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-info">Giao thất bại</button>
+                                <button type="submit" class="btn btn-info">Cancelled</button>
                             </form>
                         </td>
                     </tr>

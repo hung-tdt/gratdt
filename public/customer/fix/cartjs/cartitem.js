@@ -6,6 +6,14 @@ function updateCartView(cart) {
 
     if (cart.items.length > 0) {
         cart.items.forEach(function(item) {
+            var price = item.price;
+            var total = item.total;
+            var priceHtml = `
+                <div style="display: flex; justify-content: space-between;">
+                    <span class="cart-price">$${price.toFixed(2)}</span>
+                    <span class="price-content" style="margin-top: 5px">$${total.toFixed(2)}</span>
+                </div>
+            `;
             cartContent += `
                 <div class="single-cart-box">
                     <div class="cart-img">
@@ -18,8 +26,9 @@ function updateCartView(cart) {
                         <h6>
                             <a href="/product/${item.product.id}-${item.product.name.replace(/ /g, '-').toLowerCase()}.html">${item.product.name}</a>
                         </h6>
-                        <span class="cart-price">$${item.total}</span>
+                        ${priceHtml}
                     </div>
+                    
                 </div>
             `;
         });
@@ -35,14 +44,13 @@ function updateCartView(cart) {
             </div>
         `;
     } else {
-        cartContent += '<p>Giỏ hàng của bạn trống</p>';
+        cartContent += '<p>Your cart is empty</p>';
     }
 
     cartContent += '</li>'; 
+
     $('.ht-dropdown.cart-box-width').html(cartContent);
 }
-
-
 
 
 $(document).on('click', '.remove-item', function(e) {

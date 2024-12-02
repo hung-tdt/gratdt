@@ -8,43 +8,7 @@
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
-        <div class="ibox-content m-b-sm border-bottom">
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label" for="name">Name</label>
-                        <input type="text" id="name" name="name" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label" for="username">Username</label>
-                        <input type="text" id="username" name="username" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label" for="phone">Phone</label>
-                        <input type="text" id="phone" name="phone" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="control-label" for="email">Email</label>
-                        <input type="text" id="email" name="email" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="control-label" for="email">Email</label>
-                        <input type="text" id="email" name="email" class="form-control">
-                    </div>
-                </div>
-    
-                <button type="button" class="btn btn-primary" id="searchBtn"> <i class="fa fa-search"></i> Search</button>
-                <button type="button" class="btn btn-w-m btn-default" id="resetBtn"> <i class="fa fa-refresh"></i> Reset</button>
-            </div>
-        </div>
+        
                     
         <div class="ibox-content">     
             <button style="margin-left: 0px;" type="button" class="btn btn btn-primary"> <i class="fa fa-plus"></i>
@@ -53,12 +17,14 @@
             <table id="couponTable" style="margin-top:10px;" class="tbf table table-bordered"> 
                 <thead>
                     <tr>                                   
+                        <th>Name</th>
                         <th>Code</th>
                         <th>Type</th>
                         <th>Value</th>
                         <th>Max Uses</th>
                         <th>Expiry Date</th>
                         <th>Status</th>
+                        <th>For special</th>
                         <th>Actions</th>        
                     </tr>                       
                 </thead>
@@ -66,6 +32,7 @@
                     @foreach($coupons as $key => $coupon) 
 
                     <tr>
+                        <td>{{ $coupon->name }}</td>
                         <td>{{ $coupon->code }}</td>
                         <td>@if($coupon->discount_type == 1)
                             Percentage
@@ -77,6 +44,7 @@
                         <td>{{ $coupon->max_uses ?? 'Unlimited' }}</td>
                         <td>{{ $coupon->expiry_date ?? 'No Expiry' }}</td>
                         <td>{{ $coupon->active ? 'Active' : 'Inactive' }}</td>
+                        <td>{{ $coupon->forspecial ? 'Yes' : 'No' }}</td>
                         <td>                    
                             <div class="button-row1">                       
                                 <a style="margin: 1px" class="btn btn-success dim" 

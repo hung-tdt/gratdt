@@ -48,47 +48,63 @@
 
                 <table id="customerTable" class="tbf footable table table-stripped toggle-arrow-tiny default breakpoint footable-loaded" data-page-size="15">
                     <thead>
-                        <tr>                                                             
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)">
+                            </th>
                             <th>Customer code</th>
                             <th>Name</th>
                             <th>Username</th>
-                            <th>Avatar</th>                            
+                            <th>Avatar</th>
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Status</th>
+                            <th>Amount order</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($customers as $key => $customer) 
-
+                        @foreach($customers as $key => $customer)
                         <tr>
-                            <td>{{ $customer->id }}</td>                                    
-                            <td>{{ $customer->name }}</td>                                    
-                            <td>{{ $customer->username }}</td> 
-                            <td><a href="{{ $customer->thumb }}" target="_blank">
-                                <img src="{{ $customer->thumb }}" height="30px"></a>
-                            </td>                                   
+                            <td>
+                                <input type="checkbox" class="customer-checkbox" name="customers[]" value="{{ $customer->id }}">
+                            </td>
+                            <td>{{ $customer->id }}</td>
+                            <td>{{ $customer->name }}</td>
+                            <td>{{ $customer->username }}</td>
+                            @if($customer->thumb == null)
+                            <td></td>
+                            @else
+                            <td>
+                                <a href="{{ $customer->thumb }}" target="_blank">
+                                    <img src="{{ $customer->thumb }}" height="30px">
+                                </a>
+                            </td>
+                            @endif
                             <td>{{ $customer->phone }}</td>
                             <td>{{ $customer->email }}</td>
-                            <td style="text-align: center">{!! \App\Helpers\Helper::active($customer->active) !!}</td>   
-                            <td>                    
-                                <div class="button-row1">                       
-                                    <a style="margin: 1px" class="btn btn-success dim" 
-                                        href="{{ route('customers.edit', ['id' => $customer->id]) }}">
+                            <td style="text-align: center">{!! \App\Helpers\Helper::active($customer->active) !!}</td>
+                            <td>{{ $customer->orders->count() }}</td>
+                            <td>
+                                <div class="button-row1">
+                                    <a style="margin: 1px" class="btn btn-success dim" href="{{ route('customers.edit', ['id' => $customer->id]) }}">
                                         <i class="fa fa-edit (alias)"></i>
-                                    </a>    
-                                    <a style="margin: 1px" class="btn btn-danger  dim " href="#"
-                                        onclick="removeRow({{ $customer->id }}, '{{ route('customers.destroy', ['id' => $customer->id]) }}')">
+                                    </a>
+                                    <a style="margin: 1px" class="btn btn-danger  dim" href="#" onclick="removeRow({{ $customer->id }}, '{{ route('customers.destroy', ['id' => $customer->id]) }}')">
                                         <i class="fa fa-trash"></i>
                                     </a>
-                                </div>  
+                                </div>
                             </td>
                         </tr>
                         @endforeach
-
-                    </tbody>                   
-                </table>        
+                    </tbody>
+                </table>
+                <form id="notificationForm" action="{{ route('notifications.send') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="message" id="notificationMessage">
+                    <button type="button" class="btn btn-primary" onclick="sendNotification()">Send a notification</button>
+                </form>
+                
             </div>    
     </div>
 @endsection()
@@ -96,3 +112,44 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="/admin/search/customer.js"></script>
+<script>
+    function toggleSelectAll(selectAllCheckbox) {
+        const checkboxes = document.querySelectorAll('.customer-checkbox');
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
+    }
+</script>
+
+<script>
+    function sendNotification() {
+        const selectedCustomers = [];
+        document.querySelectorAll('.customer-checkbox:checked').forEach(checkbox => {
+            selectedCustomers.push(checkbox.value);
+        });
+
+        if (selectedCustomers.length === 0) {
+            alert('Please select at least one customer!');
+            return;
+        }
+
+        const message = prompt('Enter message content:');
+        if (!message) {
+            alert('You have not entered the message content.!');
+            return;
+        }
+
+        document.getElementById('notificationMessage').value = message;
+
+        const form = document.getElementById('notificationForm');
+        selectedCustomers.forEach(customerId => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'customers[]';
+            input.value = customerId;
+            form.appendChild(input);
+        });
+
+        form.submit();
+    }
+</script>

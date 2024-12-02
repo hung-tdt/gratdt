@@ -33,13 +33,17 @@ class LoginController extends Controller
             'email'=>$request->input(key:'email'),
             'password'=>$request->input(key:'password'), 
         ];
+        $customer = Customer::where('email', $credentials['email'])->first();
 
-        if(Auth::guard('customer')->attempt($credentials))
-            {
+        if ($customer && $customer->active == 1) {
+            if (Auth::guard('customer')->attempt($credentials)) {
                 return redirect()->route('home');           
             }
-            Session::flash('error','Incorrect email or password.');
-             return redirect()->back();
+            Session::flash('error', 'Incorrect email or password.');
+            return redirect()->back();
+        }
+        Session::flash('error', 'Account is inactive or does not exist.');
+        return redirect()->back();
     }
 
     public function register(Request $request)
@@ -53,6 +57,7 @@ class LoginController extends Controller
     {
     $validated = $request->validate([
         'name' => 'required',
+        'active' => 'required',
         'username' => 'required|string|max:255|unique:customers,username',
         'phone' => 'required',
         'email' => 'required|string|email|max:255|unique:customers,email',
@@ -72,6 +77,7 @@ class LoginController extends Controller
 
     $customer = Customer::create([
         'name' => $validated['name'],
+        'active' => $validated['active'],
         'username' => $validated['username'],
         'phone' => $validated['phone'],
         'email' => $validated['email'],

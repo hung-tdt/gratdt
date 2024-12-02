@@ -95,3 +95,31 @@
     padding: 10px; 
 }
 
+.product-list-horizontal {
+    max-width: 100%; /* Giới hạn chiều rộng của khung */
+    overflow-x: auto; /* Bật cuộn ngang */
+    white-space: nowrap; /* Giữ tất cả sản phẩm trên một dòng */
+    border: 1px solid #ddd; /* Viền khung */
+    padding: 10px; /* Khoảng cách bên trong khung */
+    border-radius: 8px; /* Góc bo tròn */
+    background-color: #f9f9f9; /* Nền nhạt */
+}
+
+.product-item-horizontal {
+    display: inline-block; /* Hiển thị sản phẩm ngang */
+    text-align: center; /* Căn giữa nội dung */
+    margin-right: 10px; /* Khoảng cách giữa các sản phẩm */
+    width: 120px; /* Chiều rộng mỗi sản phẩm */
+}
+
+.product-item-horizontal img {
+    width: 100px; /* Kích thước ảnh */
+    height: 100px;
+    object-fit: cover; /* Đảm bảo ảnh giữ tỷ lệ */
+    border-radius: 5px; /* Bo góc ảnh */
+    margin-bottom: 5px;
+}
+
+.product-item-horizontal input {
+    margin-top: 5px; /* Khoảng cách trên của checkbox */
+}

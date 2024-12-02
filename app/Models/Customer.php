@@ -8,9 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class Customer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    
 
     protected $fillable = [
         'name',
@@ -61,5 +63,10 @@ class Customer extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -186,5 +186,20 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('coupons.destroy', function (Admin $admin) {
             return $admin->checkPermissionAccess('coupons_destroy');
         });
+
+        //promotions
+        Gate::define('promotions.list', function (Admin $admin) {
+            return $admin->checkPermissionAccess('promotions_list');
+        });
+        Gate::define('promotions.add', function (Admin $admin) {
+            return $admin->checkPermissionAccess('promotions_add');
+        });
+        Gate::define('promotions.edit', function (Admin $admin) {
+            return $admin->checkPermissionAccess('promotions_edit');
+        });
+        Gate::define('promotions.destroy', function (Admin $admin) {
+            return $admin->checkPermissionAccess('promotions_destroy');
+        });
+
     }
 }

@@ -14,7 +14,6 @@ class Product extends Model
         'content',
         'product_category_id',
         'price',
-        'price_sale',
         'active',
         'thumb',
         'thumb2',
@@ -45,5 +44,40 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function promotions()
+    {
+        return $this->belongsToMany(Promotion::class, 'product_promotion')
+                    ->withPivot('discount_price', 'discount_percentage')
+                    ->where('start_date', '<=', now())
+                    ->where('end_date', '>=', now())
+                    ->where('active', true);
+    }
+
+    public function getActivePromotionEndDateAttribute()
+    {
+        $promotion = $this->promotions()->first(); 
+
+        if ($promotion) {
+            return $promotion->end_date; 
+        }   
+        return null; 
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        $promotion = $this->promotions->first();
+
+        if ($promotion) {
+            if ($promotion->pivot->discount_price) {
+                return $promotion->pivot->discount_price;
+            }
+
+            if ($promotion->pivot->discount_percentage) {
+                return $this->price - ($this->price * $promotion->pivot->discount_percentage / 100);
+            }
+        }
+        return $this->price;
     }
 }

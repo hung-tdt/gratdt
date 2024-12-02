@@ -66,7 +66,7 @@
 													<a href="#">{{ $item->product->name }}</a>
 												</td>
 												<td class="product-price">
-													<span class="amount">${{ number_format($item->product->price_sale) }}</span>
+													<span class="amount">${{ number_format($item->price) }}</span>
 												</td>
 												<td class="product-quantity">
 													<input type="number" class="quantity-input" value="{{ $item->quantity }}" data-id="{{ $item->id }}" min="1">

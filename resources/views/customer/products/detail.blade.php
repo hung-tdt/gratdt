@@ -103,17 +103,26 @@
 								</div>
 							</div>
 							@php 
-								$a =($product->price-$product->price_sale);
+								$a =($product->price-$product->discounted_price);
 								$b =  $product->price;
 								$c = ($a/$b) *100;
 								$percent =round($c, 0) ;
 							@endphp
-							<div class="pro-price mtb-30">
-								<p class="d-flex align-items-center"><span class="prev-price">
-									${{number_format($product->price, 0, ',', '.') . ""}}</span><span class="price">
-										${{number_format($product->price_sale, 0, ',', '.') . ""}}</span><span class="saving-price">save {{$percent}}%</span>
-								</p>
-							</div>
+
+							@if($product->discounted_price < $product->price)
+								<div class="pro-price mtb-30">
+									<p class="d-flex align-items-center"><span class="prev-price">
+										${{number_format($product->price, 0, ',', '.') . ""}}</span><span class="price">
+										${{number_format($product->discounted_price, 0, ',', '.') . ""}}</span><span class="saving-price">save {{$percent}}%</span>
+									</p>
+								</div>
+							@else
+								<div class="pro-price mtb-30">
+									<p class="d-flex align-items-center"><span class="price">
+										${{number_format($product->price, 0, ',', '.') . ""}}</span>				
+									</p>
+								</div>               
+							@endif
 							<p class="mb-20 pro-desc-details">{{$product->description}}</p>
 							
 							<div class="product-size mb-20 clearfix">

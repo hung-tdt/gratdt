@@ -27,4 +27,6 @@ class CartComposer
         // Chia sẻ giỏ hàng với tất cả các view
         $view->with('cart', $cart); 
     }
+
+
 }

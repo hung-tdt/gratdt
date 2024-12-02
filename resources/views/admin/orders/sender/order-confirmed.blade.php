@@ -34,7 +34,7 @@
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->phone }}</td>
                         <td>{{ $order->shipping_address }}</td>
-                        <td>{{ $order->total_amount }}</td>
+                        <td>${{ $order->total_amount }}</td>
                         <td>{{ $order->status }}</td>
                         <td>{{ $order->order_date }}</td>
                         <td>
